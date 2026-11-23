@@ -3,7 +3,8 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://klpkelampaian.com',
+  // shortcut: samakan dengan SITE.url selama memakai workers.dev.
+  site: 'https://klp-kelampaian.akbariaidul.workers.dev',
   output: 'static',
   integrations: [
     sitemap({

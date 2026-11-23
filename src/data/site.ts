@@ -1,7 +1,8 @@
 export const SITE = {
   name: 'KLP Kelampaian',
   shortName: 'KLP',
-  url: 'https://klpkelampaian.com',
+  // shortcut: alamat sementara workers.dev, ganti ke domain sendiri setelah dibeli.
+  url: 'https://klp-kelampaian.akbariaidul.workers.dev',
   title: 'KLP Kelampaian — Digital Impact Hub',
   description:
     'KLP Kelampaian merupakan inisiatif pemuda Desa Kelampaian Ilir, Kabupaten Banjar, yang mendorong inovasi sosial dan ekonomi sirkular melalui pemanfaatan potensi lokal.',
