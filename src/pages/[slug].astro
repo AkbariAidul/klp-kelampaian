@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CHAPTERS, CHAPTER_SEO, type Chapter } from '../data/chapters';
+
+export function getStaticPaths() {
+  return CHAPTERS.map((chapter) => ({
+    params: { slug: chapter.slug },
+    props: { chapter },
+  }));
+}
+
+interface Props {
+  chapter: Chapter;
+}
+
+const { chapter } = Astro.props;
+const seo = CHAPTER_SEO[chapter.slug as keyof typeof CHAPTER_SEO];
+
+const fragments = import.meta.glob<string>('../content/chapters/*.html', {
+  query: '?raw',
+  import: 'default',
+  eager: true,
+});
+
+const html = fragments[`../content/chapters/bab-${chapter.number}.html`];
+if (!html) {
+  throw new Error(`Fragmen bab ${chapter.number} tidak ditemukan`);
+}
+---
+
+<BaseLayout
+  title={`${chapter.cardTitle} — KLP Kelampaian`}
+  description={seo.description}
+  image={seo.image}
+  imageWidth={seo.imageWidth}
+  imageHeight={seo.imageHeight}
+  imageAlt={seo.imageAlt}
+>
+  <article class="chapter-article" set:html={html} />
+</BaseLayout>

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../content";
 
 @font-face {
   font-family: "Public Sans";
@@ -21,7 +22,7 @@
   font-style: normal;
   font-weight: 100 700;
   font-display: swap;
-  src: url("/fonts/material-symbols-outlined-subset.woff2") format("woff2");
+  src: url("/fonts/material-symbols-outlined.woff2") format("woff2");
 }
 
 .material-symbols-outlined {
@@ -50,7 +51,7 @@
   --radius-sm: 0.125rem;
   --radius-lg: 0.25rem;
   --radius-xl: 0.5rem;
-  --radius-full: 0.75rem;
+  --radius-full: 9999px;
 
   --color-on-surface-variant: #494551;
   --color-on-primary-fixed: #22005d;
@@ -126,6 +127,14 @@
 
   section[id] {
     scroll-margin-top: 6rem;
+  }
+
+  .chapter-article {
+    overflow-x: clip;
+  }
+
+  .chapter-article :where(.flex, .grid) > * {
+    min-width: 0;
   }
 
   a:focus-visible,
