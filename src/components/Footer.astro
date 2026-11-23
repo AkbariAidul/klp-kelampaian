@@ -1,0 +1,76 @@
+---
+import { NAV, SITE } from '../data/site';
+---
+
+<footer id="kontak" class="w-full bg-surface-container-low pt-16 pb-12 mt-20">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center gap-3">
+        <img
+          alt="Logo KLP Kelampaian"
+          class="h-8 w-auto object-contain"
+          src="/images/logo-klp-kelampaian.webp"
+          width="160"
+          height="106"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="font-headline font-bold text-on-surface text-base">KLP Kelampaian</span>
+      </div>
+      <p class="text-xs text-on-surface-variant leading-relaxed">
+        Platform Portofolio Digital Impact: Mengangkat harkat ekonomi lokal dan melestarikan ekologi rawa gambut
+        melalui tata kelola rumbia serta sagu terintegrasi di Kalimantan Selatan.
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <h2 class="text-xs font-bold text-on-surface uppercase tracking-wider font-headline">Sekretariat &amp; Lokasi</h2>
+      <p class="text-xs text-on-surface-variant leading-relaxed">
+        Desa Kelampaian Ilir, RT 02 / RW 01, Kecamatan Astambul, Kabupaten Banjar, Kalimantan Selatan, Kode Pos 70672
+      </p>
+      <a
+        class="flex items-center gap-2 text-xs text-on-surface-variant hover:text-primary transition-colors"
+        href={`mailto:${SITE.email}`}
+      >
+        <span class="material-symbols-outlined text-[16px] text-primary" aria-hidden="true">mail</span>
+        <span>{SITE.email}</span>
+      </a>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <h2 class="text-xs font-bold text-on-surface uppercase tracking-wider font-headline">Struktur Dampak &amp; Arsip</h2>
+      <ul class="flex flex-col gap-2 text-xs text-on-surface-variant">
+        <li><a class="hover:text-primary transition-colors" href="/#beranda">Kilas Balik &amp; Dokumentasi 2024-2026</a></li>
+        <li><a class="hover:text-primary transition-colors" href="/#produk">Spesifikasi Tirai &amp; Atap Rumbia</a></li>
+        <li><a class="hover:text-primary transition-colors" href="/#pilar-utama">Kelompok Pengrajin &amp; Pemuda Mandiri</a></li>
+        <li><a class="hover:text-primary transition-colors" href="/#data-capaian">Laporan Dampak Ekonomi Terverifikasi</a></li>
+      </ul>
+    </div>
+
+    <div class="flex flex-col gap-3">
+      <h2 class="text-xs font-bold text-on-surface uppercase tracking-wider font-headline">Navigasi</h2>
+      <ul class="flex flex-col gap-2 text-xs text-on-surface-variant">
+        {
+          NAV.map((item) => (
+            <li>
+              <a class="hover:text-primary transition-colors" href={item.href}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div
+    class="max-w-7xl mx-auto px-6 lg:px-12 pt-8 border-t border-outline-variant/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-on-surface-variant"
+  >
+    <p>© 2026 Koleksi Lokal Produk Kelampaian (KLP Kelampaian). Seluruh Hak Cipta Dilindungi.</p>
+    <div class="flex items-center gap-6">
+      <span>Kabupaten Banjar, Kalsel</span>
+      <span aria-hidden="true">•</span>
+      <span>Inisiatif Kepemudaan Banua</span>
+    </div>
+  </div>
+</footer>

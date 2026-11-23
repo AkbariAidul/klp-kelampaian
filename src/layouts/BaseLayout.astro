@@ -1,0 +1,138 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  includeWebsiteSchema?: boolean;
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+  image = '/og-image.jpg',
+  noindex = false,
+  includeWebsiteSchema = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const ogImage = new URL(image, SITE.url).href;
+
+const organization = {
+  '@type': 'Organization',
+  '@id': `${SITE.url}/#organization`,
+  name: SITE.name,
+  alternateName: SITE.shortName,
+  url: `${SITE.url}/`,
+  description: SITE.description,
+  logo: {
+    '@type': 'ImageObject',
+    url: `${SITE.url}/images/logo-klp-kelampaian.webp`,
+    width: 160,
+    height: 106,
+  },
+  foundingDate: SITE.foundingDate,
+  founder: {
+    '@type': 'Person',
+    name: SITE.founder,
+  },
+  email: SITE.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.locality,
+    addressRegion: SITE.address.region,
+    postalCode: SITE.address.postalCode,
+    addressCountry: SITE.address.country,
+  },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'Kabupaten Banjar, Kalimantan Selatan',
+  },
+};
+
+const website = {
+  '@type': 'WebSite',
+  '@id': `${SITE.url}/#website`,
+  url: `${SITE.url}/`,
+  name: SITE.name,
+  alternateName: SITE.shortName,
+  description: SITE.description,
+  inLanguage: 'id-ID',
+  publisher: { '@id': `${SITE.url}/#organization` },
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': includeWebsiteSchema ? [website, organization] : [organization],
+};
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta
+      name="robots"
+      content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'}
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Atap sirap daun rumbia buatan pengrajin KLP Kelampaian" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="theme-color" content="#4f378a" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+    <link rel="preload" href="/fonts/public-sans-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link
+      rel="preload"
+      href="/fonts/material-symbols-outlined-subset.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body
+    class="bg-surface font-body text-on-surface selection:bg-secondary-container selection:text-on-secondary-container antialiased"
+  >
+    <a
+      href="#konten"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-on-primary"
+    >
+      Langsung ke konten
+    </a>
+    <Header />
+    <main id="konten" class="w-full pt-28 bg-surface">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

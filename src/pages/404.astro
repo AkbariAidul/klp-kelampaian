@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Halaman Tidak Ditemukan — KLP Kelampaian"
+  description="Halaman yang Anda cari tidak tersedia di situs KLP Kelampaian."
+  noindex
+>
+  <section class="max-w-3xl mx-auto px-6 py-20 text-center flex flex-col items-center gap-6">
+    <span class="text-xs font-mono font-bold text-primary bg-primary-fixed px-3 py-1 rounded">404</span>
+    <h1 class="text-3xl sm:text-4xl font-headline font-extrabold text-on-surface">Halaman Tidak Ditemukan</h1>
+    <p class="text-sm text-on-surface-variant max-w-xl leading-relaxed">
+      Alamat yang Anda buka tidak tersedia atau sudah dipindahkan. Kembali ke beranda untuk menjelajahi portofolio
+      digital impact KLP Kelampaian.
+    </p>
+    <a
+      class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-on-primary font-headline font-semibold text-sm shadow-md hover:bg-primary-container hover:text-on-primary-container transition-colors"
+      href="/"
+    >
+      <span class="material-symbols-outlined text-[18px]" aria-hidden="true">home</span>
+      <span>Kembali ke Beranda</span>
+    </a>
+  </section>
+</BaseLayout>

@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Showcase from '../components/Showcase.astro';
+import Manifesto from '../components/Manifesto.astro';
+import Metrics from '../components/Metrics.astro';
+import Pillars from '../components/Pillars.astro';
+import Chapters from '../components/Chapters.astro';
+import Region from '../components/Region.astro';
+import Cta from '../components/Cta.astro';
+import { SITE } from '../data/site';
+---
+
+<BaseLayout
+  title={SITE.title}
+  description={SITE.description}
+  image="/og-image.jpg"
+  includeWebsiteSchema
+>
+  <Hero />
+  <Showcase />
+  <Manifesto />
+  <Metrics />
+  <Pillars />
+  <Chapters />
+  <Region />
+  <Cta />
+</BaseLayout>
