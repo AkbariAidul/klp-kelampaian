@@ -45,7 +45,7 @@ npm run preview   # pratinjau hasil build
 .
 ├── public/
 │   ├── fonts/                  # Public Sans + Material Symbols (self-hosted)
-│   ├── images/                 # gambar WebP lokal
+│   ├── images/                 # gambar WebP lokal, termasuk images/chapters/
 │   ├── _headers                # header keamanan dan cache Cloudflare Pages
 │   ├── apple-touch-icon.png
 │   ├── favicon.png
@@ -53,10 +53,13 @@ npm run preview   # pratinjau hasil build
 │   └── robots.txt
 ├── src/
 │   ├── components/             # Navbar, Footer, Hero, Metrics, dll.
-│   ├── data/site.ts            # identitas situs, kontak, navigasi
+│   ├── content/chapters/       # fragmen HTML 8 bab portofolio
+│   ├── data/chapters.ts        # slug, judul, ringkasan, grup navigasi, SEO bab
+│   ├── data/site.ts            # identitas situs dan kontak
 │   ├── layouts/BaseLayout.astro# head, SEO, header, footer
 │   ├── pages/
 │   │   ├── index.astro         # beranda
+│   │   ├── [slug].astro        # delapan halaman bab portofolio
 │   │   └── 404.astro           # halaman tidak ditemukan
 │   └── styles/global.css       # Tailwind + token desain
 ├── astro.config.mjs
@@ -71,16 +74,17 @@ npm run preview   # pratinjau hasil build
 - Tailwind CDN diganti integrasi lokal `@tailwindcss/vite`; gambar eksternal diunduh ke `public/images/` dan dioptimalkan ke WebP.
 - Font Public Sans dan Material Symbols di-host sendiri di `public/fonts/`, sehingga tidak ada permintaan ke Google Fonts saat halaman dibuka.
 - Gambar produk memakai `srcset` 600w/900w agar browser memilih ukuran sesuai layar.
-- Tautan `href="#"` dan tautan ke halaman bab yang tidak tersedia dihapus. Kartu bab kini berupa ringkasan statis. Navigasi memakai anchor ke section yang benar-benar ada.
-- Nomor telepon placeholder `+62 821-5541-XXXX` dihapus. Isi nomor resmi di `src/components/Footer.astro` sebelum publikasi.
-- Halaman bab terpisah belum dibuat karena isi lengkapnya belum tersedia. Jangan menambah tautan sebelum halamannya ada.
+- Delapan bab portofolio dimigrasikan dari dokumen sumber ke halaman statis melalui `src/content/chapters/` dan rute dinamis `src/pages/[slug].astro`.
+- Tombol unduhan palsu, `alert()`, formulir tanpa backend, serta tautan `href="#"` dihapus atau diganti dengan aksi yang benar. Formulir kolaborasi membuka aplikasi email melalui `mailto:`.
+- Nomor telepon dan WhatsApp masih memakai placeholder `+62 821-5541-XXXX`. Isi nomor resmi di `src/data/site.ts` sebelum publikasi.
+- Alamat sekretariat masih memakai `RT 02 / RW 01`. Konfirmasi nomor RT sebelum publikasi.
 
 ## Implementasi SEO
 
 - `lang="id"` dan satu `h1` per halaman.
 - Title, description, canonical, robots, Open Graph, dan Twitter Card unik per halaman.
 - JSON-LD `WebSite` dan `Organization` di beranda.
-- Sitemap: `https://klpkelampaian.com/sitemap-index.xml` (hanya beranda; 404 dikecualikan).
+- Sitemap: `https://klpkelampaian.com/sitemap-index.xml` (beranda dan delapan halaman bab; 404 dikecualikan).
 - `robots.txt` mencantumkan sitemap dan mengizinkan crawler.
 - Canonical, sitemap, structured data, dan OG memakai domain HTTPS.
 - Gambar memiliki alt, dimensi, dan lazy loading (gambar utama dimuat lebih awal).
