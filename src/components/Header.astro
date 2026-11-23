@@ -1,10 +1,14 @@
 ---
-import { NAV } from '../data/site';
+import { CHAPTER_GROUPS, CHAPTERS, chapterHref } from '../data/chapters';
+
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isActive = (slug: string) => path === `/${slug}`;
+const groupActive = (items: readonly { slug: string }[]) => items.some((item) => isActive(item.slug));
 ---
 
 <header class="fixed top-0 left-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
   <div class="h-20 max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between gap-4">
-    <a href="/#beranda" class="flex items-center gap-3 shrink-0">
+    <a href="/#beranda" class="flex items-center gap-3 shrink-0" aria-label="KLP Kelampaian — Beranda">
       <img
         alt="Logo KLP Kelampaian"
         class="h-9 w-auto object-contain"
@@ -19,19 +23,53 @@ import { NAV } from '../data/site';
       </span>
     </a>
 
-    <nav class="hidden xl:flex items-center gap-5 text-[13px] font-medium" aria-label="Navigasi utama">
+    <nav class="hidden xl:flex items-center gap-2 text-[13px] font-medium" aria-label="Navigasi utama">
+      <a
+        class:list={[
+          'rounded-lg px-3 py-2 transition-colors whitespace-nowrap',
+          path === '/' ? 'text-primary font-bold bg-primary-fixed/60' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container',
+        ]}
+        href="/#beranda"
+        aria-current={path === '/' ? 'page' : undefined}
+      >
+        Beranda
+      </a>
+
       {
-        NAV.map((item, index) => (
-          <a
-            class:list={[
-              'transition-colors whitespace-nowrap',
-              index === 0 ? 'text-primary font-bold' : 'text-on-surface-variant hover:text-on-surface',
-            ]}
-            href={item.href}
-            aria-current={index === 0 ? 'page' : undefined}
-          >
-            {item.label}
-          </a>
+        CHAPTER_GROUPS.map((group) => (
+          <details class="group relative" data-nav-group>
+            <summary
+              class:list={[
+                'flex cursor-pointer list-none items-center gap-1 rounded-lg px-3 py-2 transition-colors whitespace-nowrap hover:bg-surface-container [&::-webkit-details-marker]:hidden',
+                groupActive(group.items) ? 'text-primary font-bold' : 'text-on-surface-variant hover:text-on-surface',
+              ]}
+            >
+              {group.label}
+              <span class="material-symbols-outlined text-[17px] transition-transform group-open:rotate-180" aria-hidden="true">expand_more</span>
+            </summary>
+            <div class="absolute left-0 top-full z-50 w-72 pt-2">
+              <div class="rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-2 shadow-xl">
+                {group.items.map((item) => (
+                  <a
+                    class:list={[
+                      'flex items-start gap-3 rounded-lg p-3 transition-colors',
+                      isActive(item.slug) ? 'bg-primary-fixed/60 text-primary' : 'text-on-surface hover:bg-surface-container',
+                    ]}
+                    href={chapterHref(item)}
+                    aria-current={isActive(item.slug) ? 'page' : undefined}
+                  >
+                    <span class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded bg-surface-container text-[10px] font-bold font-mono text-on-surface-variant">
+                      {item.number}
+                    </span>
+                    <span class="flex flex-col gap-0.5">
+                      <span class="text-xs font-bold leading-snug">{item.navLabel}</span>
+                      <span class="text-[11px] leading-snug text-on-surface-variant">{item.meta}</span>
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </details>
         ))
       }
     </nav>
@@ -39,10 +77,10 @@ import { NAV } from '../data/site';
     <div class="flex items-center gap-2 shrink-0">
       <a
         class="hidden sm:inline-flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-lg text-xs font-semibold hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm"
-        href="/#kontak"
+        href="/keberlanjutan-dan-kolaborasi/#kolaborasi"
       >
         <span class="material-symbols-outlined text-[16px]" aria-hidden="true">volunteer_activism</span>
-        <span>Dukung Gerakan / Hubungi Kami</span>
+        <span>Dukung Gerakan</span>
       </a>
       <button
         type="button"
@@ -58,21 +96,57 @@ import { NAV } from '../data/site';
   </div>
 
   <div id="menu-mobile" class="hidden xl:hidden border-t border-outline-variant/30 bg-surface" data-menu>
-    <nav class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1" aria-label="Navigasi seluler">
+    <nav class="max-h-[calc(100vh-5rem)] overflow-y-auto max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1" aria-label="Navigasi seluler">
+      <a
+        class:list={[
+          'rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
+          path === '/' ? 'text-primary font-bold bg-primary-fixed/60' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container',
+        ]}
+        href="/#beranda"
+        aria-current={path === '/' ? 'page' : undefined}
+      >
+        Beranda
+      </a>
+
       {
-        NAV.map((item, index) => (
-          <a
-            class:list={[
-              'py-2.5 text-sm font-medium transition-colors',
-              index === 0 ? 'text-primary font-bold' : 'text-on-surface-variant hover:text-on-surface',
-            ]}
-            href={item.href}
-            aria-current={index === 0 ? 'page' : undefined}
-          >
-            {item.label}
-          </a>
+        CHAPTER_GROUPS.map((group) => (
+          <details class="group border-t border-outline-variant/20 pt-1">
+            <summary
+              class:list={[
+                'flex cursor-pointer list-none items-center justify-between rounded-lg px-3 py-2.5 text-sm font-semibold transition-colors hover:bg-surface-container [&::-webkit-details-marker]:hidden',
+                groupActive(group.items) ? 'text-primary' : 'text-on-surface',
+              ]}
+            >
+              {group.label}
+              <span class="material-symbols-outlined text-[20px] transition-transform group-open:rotate-180" aria-hidden="true">expand_more</span>
+            </summary>
+            <div class="mb-2 ml-3 flex flex-col border-l border-outline-variant/40 pl-3">
+              {group.items.map((item) => (
+                <a
+                  class:list={[
+                    'rounded-lg px-3 py-2 text-sm transition-colors',
+                    isActive(item.slug) ? 'text-primary font-bold bg-primary-fixed/50' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container',
+                  ]}
+                  href={chapterHref(item)}
+                  aria-current={isActive(item.slug) ? 'page' : undefined}
+                >
+                  <span class="mr-1.5 font-mono text-[10px] text-outline">{item.number}</span>
+                  {item.navLabel}
+                </a>
+              ))}
+            </div>
+          </details>
         ))
       }
+
+      <a
+        class="mt-2 inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-xs font-semibold text-on-primary"
+        href="/keberlanjutan-dan-kolaborasi/#kolaborasi"
+      >
+        <span class="material-symbols-outlined text-[16px]" aria-hidden="true">volunteer_activism</span>
+        <span>Dukung Gerakan / Hubungi Kami</span>
+      </a>
+      <span class="sr-only">{CHAPTERS.length} bab portofolio tersedia</span>
     </nav>
   </div>
 </header>
@@ -105,4 +179,32 @@ import { NAV } from '../data/site';
       }
     });
   }
+
+  const navGroups = Array.from(document.querySelectorAll<HTMLDetailsElement>('[data-nav-group]'));
+
+  navGroups.forEach((group) => {
+    group.addEventListener('toggle', () => {
+      if (!group.open) return;
+      navGroups.forEach((other) => {
+        if (other !== group) other.open = false;
+      });
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as Node;
+    navGroups.forEach((group) => {
+      if (!group.contains(target)) group.open = false;
+    });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    navGroups.forEach((group) => {
+      if (group.open) {
+        group.open = false;
+        group.querySelector<HTMLElement>('summary')?.focus();
+      }
+    });
+  });
 </script>
