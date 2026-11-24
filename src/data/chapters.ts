@@ -98,6 +98,11 @@ export const CHAPTER_GROUPS = [
   { label: 'Kolaborasi', items: CHAPTERS.slice(7) },
 ] as const;
 
+export const PRODUCT_LINKS = [
+  { label: 'Katalog Tirai Rumbia', href: 'https://tirairumbiaborneo.netlify.app/' },
+  { label: 'Katalog Atap Rumbia', href: 'https://daunataprumbiaborneo.netlify.app/' },
+] as const;
+
 export function chapterHref(chapter: Chapter): string {
   return `/${chapter.slug}/`;
 }
