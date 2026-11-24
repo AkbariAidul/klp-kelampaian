@@ -21,7 +21,7 @@ const {
   image = '/og-image.jpg',
   imageWidth = 1200,
   imageHeight = 630,
-  imageAlt = 'Atap sirap daun rumbia buatan pengrajin KLP Kelampaian',
+  imageAlt = 'Pengrajin KLP Kelampaian menganyam daun rumbia di Desa Kelampaian Ilir',
   noindex = false,
   includeWebsiteSchema = false,
 } = Astro.props;
@@ -101,6 +101,7 @@ const jsonLd = {
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content={String(imageWidth)} />
     <meta property="og:image:height" content={String(imageHeight)} />
     <meta property="og:image:alt" content={imageAlt} />
@@ -109,6 +110,7 @@ const jsonLd = {
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={imageAlt} />
 
     <meta name="theme-color" content="#4f378a" />
     <meta name="google-site-verification" content="chLUGz05r8DjTHXrUWBC8bBtEuC97-B6BBTxkmmSaFE" />
