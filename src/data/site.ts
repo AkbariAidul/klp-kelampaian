@@ -8,9 +8,9 @@ export const SITE = {
     'KLP Kelampaian merupakan inisiatif pemuda Desa Kelampaian Ilir, Kabupaten Banjar, yang mendorong inovasi sosial dan ekonomi sirkular melalui pemanfaatan potensi lokal.',
   locale: 'id_ID',
   email: 'kontak@klpkelampaian.com',
-  phone: '+62 821-5541-XXXX',
-  whatsapp: '+62 821-5541-XXXX',
-  whatsappUrl: '',
+  phone: '+62 896-9969-3082',
+  whatsapp: '+62 896-9969-3082',
+  whatsappUrl: 'https://wa.me/6289699693082',
   founder: 'Mislaini',
   foundingDate: '2024',
   address: {

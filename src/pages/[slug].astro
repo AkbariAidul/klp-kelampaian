@@ -38,3 +38,37 @@ if (!html) {
 >
   <article class="chapter-article" set:html={html} />
 </BaseLayout>
+
+<script>
+  import { SITE } from '../data/site';
+
+  const form = document.querySelector<HTMLFormElement>('#collab-form');
+
+  if (form) {
+    const value = (id: string) =>
+      (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | null)?.value.trim() ?? '';
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const topic = document.getElementById('collab-topic') as HTMLSelectElement | null;
+      const lines = [
+        '*Formulir Kemitraan KLP Kelampaian*',
+        '',
+        `Nama: ${value('collab-name')}`,
+        `Instansi: ${value('collab-org')}`,
+        `Email: ${value('collab-email')}`,
+        `WhatsApp: ${value('collab-wa')}`,
+        `Peminatan: ${topic?.selectedOptions[0]?.textContent?.trim() ?? ''}`,
+        '',
+        'Pesan:',
+        value('collab-message'),
+      ];
+
+      const url = `${SITE.whatsappUrl}?text=${encodeURIComponent(lines.join('\n'))}`;
+      const opened = window.open(url, '_blank');
+      if (opened) opened.opener = null;
+      else window.location.href = url;
+    });
+  }
+</script>

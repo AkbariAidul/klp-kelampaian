@@ -75,8 +75,8 @@ npm run preview   # pratinjau hasil build
 - Font Public Sans dan Material Symbols di-host sendiri di `public/fonts/`, sehingga tidak ada permintaan ke Google Fonts saat halaman dibuka.
 - Gambar produk memakai `srcset` 600w/900w agar browser memilih ukuran sesuai layar.
 - Delapan bab portofolio dimigrasikan dari dokumen sumber ke halaman statis melalui `src/content/chapters/` dan rute dinamis `src/pages/[slug].astro`.
-- Tombol unduhan palsu, `alert()`, formulir tanpa backend, serta tautan `href="#"` dihapus atau diganti dengan aksi yang benar. Formulir kolaborasi membuka aplikasi email melalui `mailto:`.
-- Nomor telepon dan WhatsApp masih memakai placeholder `+62 821-5541-XXXX`. Isi nomor resmi di `src/data/site.ts` sebelum publikasi.
+- Tombol unduhan palsu, `alert()`, formulir tanpa backend, serta tautan `href="#"` dihapus atau diganti dengan aksi yang benar. Formulir kolaborasi membuka WhatsApp dengan pesan yang sudah terisi.
+- Nomor telepon dan WhatsApp memakai `+62 896-9969-3082` (Mislaini) di `src/data/site.ts`.
 - Alamat sekretariat masih memakai `RT 02 / RW 01`. Konfirmasi nomor RT sebelum publikasi.
 
 ## Implementasi SEO
