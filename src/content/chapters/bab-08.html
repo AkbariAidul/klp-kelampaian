@@ -513,7 +513,7 @@
 </div>
 <div class="flex flex-col gap-1.5">
 <label class="text-xs font-semibold text-on-surface" for="collab-wa">Nomor WhatsApp Aktif <span class="text-primary">*</span></label>
-<input class="w-full px-4 py-3 rounded-xl bg-surface text-on-surface placeholder:text-on-surface-variant/50 text-xs focus:outline-none focus:ring-2 focus:ring-primary shadow-sm" id="collab-wa" name="whatsapp" placeholder="Contoh: +62 812-xxxx-xxxx" required="" type="tel">
+<input class="w-full px-4 py-3 rounded-xl bg-surface text-on-surface placeholder:text-on-surface-variant/50 text-xs focus:outline-none focus:ring-2 focus:ring-primary shadow-sm" id="collab-wa" name="whatsapp" placeholder="Contoh: 0812-xxxx-xxxx" required="" type="tel">
 </div>
 </div>
 <div class="flex flex-col gap-1.5">
@@ -536,11 +536,11 @@
 <input class="w-4 h-4 rounded text-primary focus:ring-primary" id="consent-check" required="" type="checkbox">
 <label class="text-[11px] text-on-surface-variant" for="consent-check">Saya menyatakan data di atas benar untuk kepentingan koordinasi resmi gerakan KLP Kelampaian.</label>
 </div>
-<button class="w-full py-3.5 px-6 rounded-xl bg-primary text-on-primary font-bold text-xs hover:bg-primary-container transition-colors shadow-sm flex items-center justify-center gap-2" type="submit">
+<button class="w-full py-3.5 px-6 rounded-xl bg-primary text-on-primary font-bold text-xs hover:bg-primary-container transition-colors shadow-sm flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-wait" id="collab-submit" type="submit">
 <span class="material-symbols-outlined text-[18px]">send</span>
 <span>Kirimkan Formulir Kemitraan</span>
 </button>
-<!-- Feedback banner -->
+<div class="pointer-events-none fixed inset-x-4 bottom-6 z-[60] hidden justify-center" id="collab-toast" role="status" aria-live="polite"></div>
 </form>
 </div>
 </div>
